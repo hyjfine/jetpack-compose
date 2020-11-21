@@ -3,27 +3,25 @@ package com.example.mycompose
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.Composable
-import androidx.compose.Model
-//import androidx.ui.core.Text
-import androidx.ui.core.setContent
-import androidx.ui.foundation.AdapterList
-import androidx.ui.foundation.Text
-import androidx.ui.foundation.VerticalScroller
-import androidx.ui.graphics.Color
-import androidx.ui.layout.Column
-import androidx.ui.layout.LayoutPadding
-import androidx.ui.material.*
-import androidx.ui.text.TextStyle
+import androidx.compose.foundation.ScrollableColumn
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumnFor
+import androidx.compose.material.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.setContent
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.ui.tooling.preview.Preview
-import androidx.ui.unit.dp
-import androidx.ui.unit.sp
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
             MyAppTheme { MyScreenContent() }
         }
     }
@@ -35,7 +33,7 @@ const val TAG = "MainActivity"
 @Composable
 fun MyApp(children: @Composable() () -> Unit) {
     MaterialTheme {
-        Surface(color = Color.Yellow, modifier = LayoutPadding(24.dp)) {
+        Surface(color = Color.Yellow, modifier = Modifier.padding(24.dp)) {
             children()
         }
     }
@@ -43,7 +41,7 @@ fun MyApp(children: @Composable() () -> Unit) {
 
 
 val green = Color(0xFF1EB980)
-private val themeColors = lightColorPalette(
+private val themeColors = lightColors(
     primary = green,
     surface = Color.DarkGray,
     onSurface = green
@@ -59,30 +57,34 @@ fun MyAppTheme(children: @Composable() () -> Unit) {
 @Composable
 fun MyScreenContent(counterState: CounterState = CounterState()) {
     Log.d(TAG, "------myScreenContent 000")
-    VerticalScroller() {
-        Column {
-            AdapterListView()
-//            ListViews()
-            Counter(state = counterState)
-        }
-    }
+    AdapterListView()
     Log.d(TAG, "------myScreenContent 111")
 }
 
 @Composable
 fun AdapterListView() {
-    AdapterList(
-        data = (1..2000).toList()
-    ) {
-        Text("$it Even", style = TextStyle(fontSize = 28.sp, color = Color.Gray))
+    println("----000")
+    val data = (1..2000).toList()
+    println("----111")
+    Column {
+        Text(text = "Head", style = MaterialTheme.typography.h5)
+        Divider()
+        LazyColumnFor(items = data) {
+            Text("$it Even", style = TextStyle(fontSize = 28.sp, color = Color.Gray))
+        }
     }
 }
 
 @Composable
 fun ListViews(itemSize: Int = 2000) {
-    for (i in 0..itemSize) {
-        Greeting(name = "name $i")
-        if (i != itemSize) Divider(color = Color.Gray)
+    ScrollableColumn {
+        Column {
+            for (i in 0..itemSize) {
+                Greeting(name = "name $i")
+                if (i != itemSize) Divider(color = Color.Gray)
+            }
+            Counter(state = CounterState())
+        }
     }
 }
 
@@ -90,7 +92,7 @@ fun ListViews(itemSize: Int = 2000) {
 fun Counter(state: CounterState) {
     Button(
         onClick = { state.count++ },
-        backgroundColor = if (state.count > 5) Color.Blue else Color.Green
+//        colors = if (state.count > 5) Color.Blue else Color.Green
     ) {
         Text("I've been clicked ${state.count} times")
     }
@@ -110,5 +112,5 @@ fun DefaultPreview() {
     MyApp { Greeting(name = "Composable") }
 }
 
-@Model
+//@Model
 class CounterState(var count: Int = 0)
