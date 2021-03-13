@@ -2,20 +2,19 @@ package com.example.mycompose
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumnFor
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.ui.tooling.preview.Preview
 
 
 class MainActivity : AppCompatActivity() {
@@ -58,6 +57,7 @@ fun MyAppTheme(children: @Composable() () -> Unit) {
 fun MyScreenContent(counterState: CounterState = CounterState()) {
     Log.d(TAG, "------myScreenContent 000")
     AdapterListView()
+//    ListViews()
     Log.d(TAG, "------myScreenContent 111")
 }
 
@@ -69,7 +69,18 @@ fun AdapterListView() {
     Column {
         Text(text = "Head", style = MaterialTheme.typography.h5)
         Divider()
-        LazyColumnFor(items = data) {
+        LazyColumn {
+            item {
+                ListItems(data = data)
+            }
+        }
+    }
+}
+
+@Composable
+fun ListItems(data: List<Int>) {
+    Column {
+        data.forEach {
             Text("$it Even", style = TextStyle(fontSize = 28.sp, color = Color.Gray))
         }
     }
@@ -77,14 +88,12 @@ fun AdapterListView() {
 
 @Composable
 fun ListViews(itemSize: Int = 2000) {
-    ScrollableColumn {
-        Column {
-            for (i in 0..itemSize) {
-                Greeting(name = "name $i")
-                if (i != itemSize) Divider(color = Color.Gray)
-            }
-            Counter(state = CounterState())
+    Column {
+        for (i in 0..itemSize) {
+            Greeting(name = "name $i")
+            if (i != itemSize) Divider(color = Color.Gray)
         }
+        Counter(state = CounterState())
     }
 }
 

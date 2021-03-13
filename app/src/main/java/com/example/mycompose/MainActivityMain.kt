@@ -2,19 +2,19 @@ package com.example.mycompose
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.preferredHeight
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.setContent
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.ui.tooling.preview.Preview
 
 
 class MainActivityMain : AppCompatActivity() {
@@ -31,7 +31,7 @@ class MainActivityMain : AppCompatActivity() {
                         Text(text = "go compose")
                     }
 
-                    Spacer(modifier = Modifier.preferredHeight(12.dp))
+                    Spacer(modifier =  Modifier.requiredHeight(12.dp))
 //                    Row(modifier = LayoutHeight(12.dp)) {
 //                    }
 
@@ -41,7 +41,7 @@ class MainActivityMain : AppCompatActivity() {
                         Text(text = "go compose adapter")
                     }
 
-                    Spacer(modifier = Modifier.preferredHeight(12.dp))
+                    Spacer(modifier = Modifier.requiredHeight(12.dp))
 
 
                     Button(onClick = {

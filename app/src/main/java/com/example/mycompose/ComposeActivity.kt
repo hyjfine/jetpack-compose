@@ -1,6 +1,7 @@
 package com.example.mycompose
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -9,11 +10,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.platform.setContent
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.ui.tooling.preview.Preview
 
 class ComposeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,8 +31,8 @@ fun GroupView() {
     Column(modifier = Modifier.padding(16.dp)) {
 
         Image(
-            asset = vectorResource(R.drawable.ic_launcher_foreground),
-            colorFilter = ColorFilter.tint(MaterialTheme.colors.primary)
+            painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = ""
+//            colorFilter = ColorFilter.tint(MaterialTheme.colors.primary)
         )
 
         Text("A day in Shark Fin Cove s")
